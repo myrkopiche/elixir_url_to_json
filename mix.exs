@@ -15,8 +15,11 @@ defmodule XmlParse.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
-    [extra_applications: [:logger]]
+    [applications: applications(Mix.env)]
   end
+
+  def applications(:dev), do: applications(:all) ++ [:remix]
+  def applications(_all), do: [:logger]
 
   # Dependencies can be Hex packages:
   #
@@ -28,6 +31,6 @@ defmodule XmlParse.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    []
+    [{:remix, "~> 0.0.1", only: :dev}]
   end
 end
